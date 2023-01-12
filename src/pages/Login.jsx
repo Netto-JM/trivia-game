@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import logo from '../trivia.png';
 
-class LoginScreen extends Component {
+class Login extends Component {
   state = {
     user: '',
     email: '',
@@ -110,8 +110,8 @@ class LoginScreen extends Component {
   }
 }
 
-LoginScreen.propTypes = {
+Login.propTypes = {
   history: PropTypes.string,
 }.isRequired;
 
-export default connect()(LoginScreen);
+export default connect()(Login);
