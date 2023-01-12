@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import logo from '../trivia.png';
 
 class LoginScreen extends Component {
@@ -6,6 +8,24 @@ class LoginScreen extends Component {
     user: '',
     email: '',
     buttonDisable: true,
+  };
+
+  apiRequest = async () => {
+    const api = 'https://opentdb.com/api_token.php?command=request';
+    const response = await fetch(api);
+    const data = await response.json();
+    const { token } = data;
+    localStorage.setItem('token', token);
+  };
+
+  handleGame = () => {
+    const { history } = this.props;
+    history.push('/gamescreen');
+  };
+
+  redirect = async () => {
+    await this.apiRequest();
+    this.handleGame();
   };
 
   handleChange = (event) => {
@@ -26,6 +46,11 @@ class LoginScreen extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+  };
+
+  handleSettings = () => {
+    const { history } = this.props;
+    history.push('/settings');
   };
 
   render() {
@@ -59,12 +84,24 @@ class LoginScreen extends Component {
                 data-testid="input-gravatar-email"
               />
             </label>
+            {' '}
+            {' '}
             <button
               type="submit"
               disabled={ buttonDisable }
+              onClick={ this.redirect }
               data-testid="btn-play"
             >
               Play
+            </button>
+            {' '}
+            {' '}
+            <button
+              type="button"
+              data-testid="btn-settings"
+              onClick={ this.handleSettings }
+            >
+              Configurações
             </button>
           </form>
         </header>
@@ -73,4 +110,8 @@ class LoginScreen extends Component {
   }
 }
 
-export default LoginScreen;
+LoginScreen.propTypes = {
+  history: PropTypes.string,
+}.isRequired;
+
+export default connect()(LoginScreen);
