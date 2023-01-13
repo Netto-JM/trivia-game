@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import logo from '../trivia.png';
 
+export const apiRequest = async () => {
+  const response = await fetch('https://opentdb.com/api_token.php?command=request');
+  const data = await response.json();
+  return data;
+};
+
 class Login extends Component {
   state = {
     user: '',
@@ -10,11 +16,7 @@ class Login extends Component {
     buttonDisable: true,
   };
 
-  apiRequest = async () => {
-    const api = 'https://opentdb.com/api_token.php?command=request';
-    const response = await fetch(api);
-    const data = await response.json();
-    const { token } = data;
+  saveLocalStorage = ({ token }) => {
     localStorage.setItem('token', token);
   };
 
@@ -24,8 +26,13 @@ class Login extends Component {
   };
 
   redirect = async () => {
-    await this.apiRequest();
-    this.handleGame();
+    const data = await apiRequest();
+    console.log('dataa', data);
+    const { response_message: msg } = data;
+    if (msg === 'Token Generated Successfully!') {
+      this.saveLocalStorage(data);
+      return this.handleGame();
+    }
   };
 
   handleChange = (event) => {
