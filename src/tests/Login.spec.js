@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 import apiRequest from '../pages/Login';
+import mockFetchToken from '../__mocks__/mockFetchToken';
 
 describe('Testes da Tela de Login', () => {
 
@@ -21,7 +22,7 @@ describe('Testes da Tela de Login', () => {
       token: 'f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6',
     };
 
-    jest.spyOn(global, 'fetch');
+    jest.spyOn(global, 'fetch').mockImplementation(mockFetchToken);
 
     const { history } = renderWithRouterAndRedux(<App />);
     const emailInput = screen.getByTestId('input-gravatar-email');
