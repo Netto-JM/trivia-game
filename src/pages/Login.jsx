@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import logo from '../trivia.png';
+import { saveUser } from '../redux/actions';
 
 export const apiRequest = async () => {
   const response = await fetch('https://opentdb.com/api_token.php?command=request');
@@ -20,18 +21,20 @@ class Login extends Component {
     localStorage.setItem('token', token);
   };
 
-  handleGame = () => {
+  redirect = (path) => {
     const { history } = this.props;
-    history.push('/gamescreen');
+    history.push(path);
   };
 
-  redirect = async () => {
+  handlePlay = async () => {
+    const { dispatch } = this.props;
+    const { user } = this.state;
     const data = await apiRequest();
-    console.log('dataa', data);
     const { response_message: msg } = data;
     if (msg === 'Token Generated Successfully!') {
+      dispatch(saveUser(user));
       this.saveLocalStorage(data);
-      return this.handleGame();
+      return this.redirect('/game');
     }
   };
 
@@ -53,11 +56,6 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-  };
-
-  handleSettings = () => {
-    const { history } = this.props;
-    history.push('/settings');
   };
 
   render() {
@@ -96,7 +94,7 @@ class Login extends Component {
             <button
               type="submit"
               disabled={ buttonDisable }
-              onClick={ this.redirect }
+              onClick={ this.handlePlay }
               data-testid="btn-play"
             >
               Play
@@ -106,7 +104,7 @@ class Login extends Component {
             <button
               type="button"
               data-testid="btn-settings"
-              onClick={ this.handleSettings }
+              onClick={ () => { this.redirect('/settings'); } }
             >
               Configurações
             </button>
@@ -118,7 +116,8 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.string,
-}.isRequired;
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape().isRequired,
+};
 
 export default connect()(Login);
