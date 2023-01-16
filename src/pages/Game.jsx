@@ -30,7 +30,6 @@ class Game extends Component {
       }
       return shuffledArray;
     };
-
     console.log('questions', questions);
 
     const questionsElement = questions.map((element, index) => {
@@ -52,10 +51,15 @@ class Game extends Component {
         </button>
       ));
       const rightAnswer = (
-        <button type="button" data-testid="correct-answer">
+        <button
+          type="button"
+          data-testid="correct-answer"
+          onClick={ this.handleColors() }
+        >
           {correctAnswer}
         </button>
       );
+
       const shuffledAnsweers = shuffle([...wrongAnswers, rightAnswer]);
       console.log(shuffledAnsweers);
       console.log('shuffledAnsweers', shuffledAnsweers);
