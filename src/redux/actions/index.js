@@ -3,11 +3,17 @@ export const FETCH_GAME_STARTED = 'FETCH_GAME_STARTED';
 export const FETCH_GAME_SUCCESSFUL = 'FETCH_GAME_SUCCESSFUL';
 export const FETCH_GAME_FAILED = 'FETCH_GAME_FAILED';
 export const INVALID_TOKEN_ERROR = 'Invalid Token';
-const AMOUNT = 5;
+export const ANSWER_QUESTION = 'ANSWER_QUESTION';
+export const AMOUNT = 5;
 
 export const saveUser = (userName) => ({
   type: SAVE_USER,
   payload: userName,
+});
+
+export const answerQuestion = (result) => ({
+  type: ANSWER_QUESTION,
+  payload: result,
 });
 
 const fetchGameStarted = () => ({
