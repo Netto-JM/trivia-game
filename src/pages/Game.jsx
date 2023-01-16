@@ -31,8 +31,6 @@ class Game extends Component {
       return shuffledArray;
     };
 
-    console.log('questions', questions);
-
     const questionsElement = questions.map((element, index) => {
       const {
         category,
@@ -57,8 +55,6 @@ class Game extends Component {
         </button>
       );
       const shuffledAnsweers = shuffle([...wrongAnswers, rightAnswer]);
-      console.log(shuffledAnsweers);
-      console.log('shuffledAnsweers', shuffledAnsweers);
       return (
         <Question
           key={ question + index }
@@ -68,8 +64,6 @@ class Game extends Component {
         />
       );
     });
-
-    console.log('questions: ', questions);
 
     return (
       <div>
