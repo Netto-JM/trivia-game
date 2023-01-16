@@ -54,7 +54,6 @@ class Game extends Component {
         <button
           type="button"
           data-testid="correct-answer"
-          onClick={ this.handleColors() }
         >
           {correctAnswer}
         </button>
