@@ -29,7 +29,7 @@ Header.propTypes = {
     image: PropTypes.string,
     name: PropTypes.string,
   }),
-  score: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ user, game }) => ({
