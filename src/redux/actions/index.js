@@ -4,6 +4,7 @@ export const FETCH_GAME_SUCCESSFUL = 'FETCH_GAME_SUCCESSFUL';
 export const FETCH_GAME_FAILED = 'FETCH_GAME_FAILED';
 export const INVALID_TOKEN_ERROR = 'Invalid Token';
 export const ANSWER_QUESTION = 'ANSWER_QUESTION';
+export const GO_TO_NEXT_QUESTION = 'GO_TO_NEXT_QUESTION';
 export const AMOUNT = 5;
 
 export const saveUser = (userName) => ({
@@ -14,6 +15,10 @@ export const saveUser = (userName) => ({
 export const answerQuestion = (result) => ({
   type: ANSWER_QUESTION,
   payload: result,
+});
+
+export const goToNextQuestion = () => ({
+  type: GO_TO_NEXT_QUESTION,
 });
 
 const fetchGameStarted = () => ({
