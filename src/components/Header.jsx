@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { user } = this.props;
-    const { image, name, score } = user;
+    const { user, score } = this.props;
+    const { image, name } = user;
 
     return (
       <div>
@@ -17,11 +17,10 @@ class Header extends Component {
   }
 }
 
-Header.defaulProps = {
+Header.defaultProps = {
   user: {
     image: 'url image',
     name: 'common name',
-    score: 0,
   },
 };
 
@@ -29,12 +28,13 @@ Header.propTypes = {
   user: PropTypes.shape({
     image: PropTypes.string,
     name: PropTypes.string,
-    score: PropTypes.number,
   }),
-}.isRequired;
+  score: PropTypes.string.isRequired,
+};
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, game }) => ({
   user,
+  score: game.score,
 });
 
 export default connect(mapStateToProps)(Header);
