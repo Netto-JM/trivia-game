@@ -22,7 +22,7 @@ const gameReducer = (state = INITIAL_STATE, { type, payload }) => {
   case FETCH_GAME_FAILED:
     return { ...state, isFetching: false, errorMessage: payload, questions: [] };
   case GO_TO_NEXT_QUESTION:
-    return { ...state, questionIndex: questionIndex + 1 };
+    return { ...state, questionIndex: state.questionIndex + 1 };
   default:
     return state;
   }
