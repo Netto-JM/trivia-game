@@ -5,6 +5,28 @@ class Question extends Component {
   state = {
     rightAnswerClasses: 'answer',
     wrongAnswerClasses: 'answer',
+    questionTimer: 30,
+    questionTimerId: 0,
+  };
+
+  componentDidMount() {
+    const ONE_SECOND = 1000;
+    this.setState({
+      questionTimerId: setInterval(this.updateTimer, ONE_SECOND),
+    });
+  }
+
+  componentWillUnmount() {
+    const { questionTimerId } = this.state;
+    clearInterval(questionTimerId);
+  }
+
+  updateTimer = () => {
+    const { questionTimer } = this.state;
+    if (questionTimer <= 0) return;
+    this.setState((prevState) => ({
+      questionTimer: prevState.questionTimer - 1,
+    }));
   };
 
   handleClick = () => {
