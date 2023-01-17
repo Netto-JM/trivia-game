@@ -22,8 +22,8 @@ class Question extends Component {
   }
 
   updateTimer = () => {
-    const { questionTimer } = this.state;
-    if (questionTimer <= 0) return;
+    const { questionTimer, questionTimerId } = this.state;
+    if (questionTimer <= 0) return clearInterval(questionTimerId);
     this.setState((prevState) => ({
       questionTimer: prevState.questionTimer - 1,
     }));
