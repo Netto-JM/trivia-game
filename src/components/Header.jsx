@@ -6,10 +6,11 @@ class Header extends Component {
   render() {
     const { user, score } = this.props;
     const { image, name } = user;
+    const imageUrl = (hash) => `https://www.gravatar.com/avatar/${hash}`;
 
     return (
       <div>
-        <img src={ image } data-testid="header-profile-picture" alt={ name } />
+        <img src={ imageUrl(image) } data-testid="header-profile-picture" alt={ name } />
         <p data-testid="header-player-name">{ name }</p>
         <p data-testid="header-score">{ score }</p>
       </div>
@@ -19,8 +20,9 @@ class Header extends Component {
 
 Header.defaultProps = {
   user: {
-    image: 'url image',
-    name: 'common name',
+    image: '',
+    name: '',
+    email: '',
   },
 };
 
@@ -28,6 +30,7 @@ Header.propTypes = {
   user: PropTypes.shape({
     image: PropTypes.string,
     name: PropTypes.string,
+    email: PropTypes.string,
   }),
   score: PropTypes.number.isRequired,
 };
