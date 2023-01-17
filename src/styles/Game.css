@@ -1,7 +1,8 @@
-.clicked-right-answer {
+/* a classe "answer" pode ser utilizada para estilizar todas as alternativas */
+.answer.clicked-right-answer {
   border: 3px solid rgb(6, 240, 15);
 }
 
-.clicked-wrong-answer {
+.answer.clicked-wrong-answer {
   border: 3px solid red;
 }
