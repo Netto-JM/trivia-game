@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { answerQuestion } from '../redux/actions';
+import { answerQuestion, goToNextQuestion } from '../redux/actions';
 
 class Question extends Component {
   state = {
@@ -10,6 +10,7 @@ class Question extends Component {
     questionTimer: 30,
     questionTimerId: 0,
     disableButton: false,
+    showNextButton: false,
   };
 
   componentDidMount() {
@@ -30,6 +31,7 @@ class Question extends Component {
     this.setState({
       questionTimer: 0,
       disableButton: true,
+      showNextButton: true,
     });
   };
 
@@ -41,26 +43,33 @@ class Question extends Component {
     }));
   };
 
-  handleClick = ({ target: { name } }) => {
+  updateScore = () => {
     const { difficulty, dispatch } = this.props;
     const { questionTimer } = this.state;
-    if (name === 'correctAnswer') {
-      const dfcyMtpl = { hard: 3, medium: 2, easy: 1 };
-      const TEN_POINTS = 10;
-      const questionScore = TEN_POINTS + (questionTimer * dfcyMtpl[difficulty]);
-      console.log('questionScore', questionScore);
-      dispatch(answerQuestion(questionScore));
-    }
+    const dfcyMtpl = { hard: 3, medium: 2, easy: 1 };
+    const TEN_POINTS = 10;
+    const questionScore = TEN_POINTS + questionTimer * dfcyMtpl[difficulty];
+    dispatch(answerQuestion(questionScore));
+  };
+
+  handleClick = ({ target: { name } }) => {
+    if (name === 'correctAnswer') this.updateScore();
     this.setState({
       rightAnswerClasses: 'answer clicked-right-answer',
       wrongAnswerClasses: 'answer clicked-wrong-answer',
       disableButton: true,
+      showNextButton: true,
     });
   };
 
   render() {
-    const { question, category, answers, correctAnswer } = this.props;
-    const { rightAnswerClasses, wrongAnswerClasses, disableButton } = this.state;
+    const { question, category, answers, correctAnswer, dispatch } = this.props;
+    const {
+      rightAnswerClasses,
+      wrongAnswerClasses,
+      disableButton,
+      showNextButton,
+    } = this.state;
 
     const options = answers.map((answer, ansIndex) => {
       if (answer === correctAnswer) {
@@ -98,6 +107,15 @@ class Question extends Component {
         <h1 data-testid="question-category">{category}</h1>
         <p data-testid="question-text">{question}</p>
         <div data-testid="answer-options">{options}</div>
+        {showNextButton && (
+          <button
+            data-testid="btn-next"
+            type="button"
+            onClick={ () => { dispatch(goToNextQuestion()); } }
+          >
+            Next
+          </button>
+        )}
       </div>
     );
   }
