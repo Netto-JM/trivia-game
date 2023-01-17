@@ -1,5 +1,5 @@
-export const SAVE_USER = 'SAVE_USER';
-export const SAVE_USER_IMAGE = 'SAVE_USER_IMAGE';
+export const SAVE_PLAYER = 'SAVE_PLAYER';
+export const SAVE_PLAYER_IMAGE = 'SAVE_PLAYER_IMAGE';
 
 export const FETCH_GAME_STARTED = 'FETCH_GAME_STARTED';
 export const FETCH_GAME_SUCCESSFUL = 'FETCH_GAME_SUCCESSFUL';
@@ -9,13 +9,13 @@ export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const GO_TO_NEXT_QUESTION = 'GO_TO_NEXT_QUESTION';
 export const AMOUNT = 5;
 
-export const saveUser = (payload) => ({
-  type: SAVE_USER,
+export const savePlayer = (payload) => ({
+  type: SAVE_PLAYER,
   payload,
 });
 
-export const saveUserImage = (payload) => ({
-  type: SAVE_USER_IMAGE,
+export const savePlayerImage = (payload) => ({
+  type: SAVE_PLAYER_IMAGE,
   payload,
 });
 
