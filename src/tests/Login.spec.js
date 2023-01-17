@@ -15,12 +15,7 @@ describe('Testes da Tela de Login', () => {
   //   expect(global.fetch).toHaveBeenCalled();
   // });
 
-  it.only('verifica se a página principal da aplicação é renderizada na rota "/"', () => {
-    const mockResponse = {
-      response_code: 0,
-      response_message: 'Token Generated Successfully!',
-      token: 'f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6',
-    };
+  it('verifica se a página principal da aplicação é renderizada na rota "/"', () => {
 
     jest.spyOn(global, 'fetch').mockImplementation(mockFetchToken);
 

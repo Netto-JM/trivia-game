@@ -5,11 +5,24 @@ import Header from '../components/Header';
 import Question from '../components/Question';
 import { fetchGame, INVALID_TOKEN_ERROR, AMOUNT } from '../redux/actions';
 
+import '../styles/Game.css';
+
 class Game extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchGame());
   }
+
+  // método "shuffle" abaixo usa um algoritmo chamado "Fisher-Yates shuffle."
+
+  shuffle = (array) => {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
+  };
 
   render() {
     const { questions, errorMessage, history, questionIndex } = this.props;
@@ -20,19 +33,6 @@ class Game extends Component {
 
     const nextQuestionAvailable = AMOUNT > questionIndex;
 
-    // função "shuffle" abaixo usa um algoritmo chamado "Fisher-Yates shuffle."
-
-    const shuffle = (array) => {
-      const shuffledArray = [...array];
-      for (let i = shuffledArray.length - 1; i > 0; i -= 1) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-      }
-      return shuffledArray;
-    };
-
-    console.log('questions', questions);
-
     const questionsElement = questions.map((element, index) => {
       const {
         category,
@@ -42,34 +42,17 @@ class Game extends Component {
         question,
         // type,
       } = element;
-      const wrongAnswers = incorrectAnswers.map((answer, ansIndex) => (
-        <button
-          type="button"
-          key={ answer + ansIndex }
-          data-testid={ `wrong-answer-${ansIndex}` }
-        >
-          {answer}
-        </button>
-      ));
-      const rightAnswer = (
-        <button type="button" data-testid="correct-answer">
-          {correctAnswer}
-        </button>
-      );
-      const shuffledAnsweers = shuffle([...wrongAnswers, rightAnswer]);
-      console.log(shuffledAnsweers);
-      console.log('shuffledAnsweers', shuffledAnsweers);
+      const shuffledAnsweers = this.shuffle([...incorrectAnswers, correctAnswer]);
       return (
         <Question
           key={ question + index }
           question={ question }
           category={ category }
-          options={ shuffledAnsweers }
+          answers={ shuffledAnsweers }
+          correctAnswer={ correctAnswer }
         />
       );
     });
-
-    console.log('questions: ', questions);
 
     return (
       <div>
