@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { MD5 } from 'crypto-js';
+
 import logo from '../trivia.png';
 import { saveUser } from '../redux/actions';
 
@@ -28,11 +30,14 @@ class Login extends Component {
 
   handlePlay = async () => {
     const { dispatch } = this.props;
-    const { user } = this.state;
+    const { user, email } = this.state;
     const data = await apiRequest();
     const { response_message: msg } = data;
+
+    const image = MD5(email).toString();
+
     if (msg === 'Token Generated Successfully!') {
-      dispatch(saveUser(user));
+      dispatch(saveUser({ name: user, email, image }));
       this.saveLocalStorage(data);
       return this.redirect('/game');
     }
