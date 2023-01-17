@@ -7,6 +7,7 @@ class Question extends Component {
     wrongAnswerClasses: 'answer',
     questionTimer: 30,
     questionTimerId: 0,
+    disableButton: false,
   };
 
   componentDidMount() {
@@ -21,9 +22,18 @@ class Question extends Component {
     clearInterval(questionTimerId);
   }
 
+  timeOver = () => {
+    const { questionTimerId } = this.state;
+    clearInterval(questionTimerId);
+    this.setState({
+      questionTimer: 0,
+      disableButton: true,
+    });
+  };
+
   updateTimer = () => {
-    const { questionTimer, questionTimerId } = this.state;
-    if (questionTimer <= 0) return clearInterval(questionTimerId);
+    const { questionTimer } = this.state;
+    if (questionTimer <= 1) return this.timeOver();
     this.setState((prevState) => ({
       questionTimer: prevState.questionTimer - 1,
     }));
@@ -38,7 +48,7 @@ class Question extends Component {
 
   render() {
     const { question, category, answers, correctAnswer } = this.props;
-    const { rightAnswerClasses, wrongAnswerClasses } = this.state;
+    const { rightAnswerClasses, wrongAnswerClasses, disableButton } = this.state;
 
     const options = answers.map((answer, ansIndex) => {
       if (answer === correctAnswer) {
@@ -49,6 +59,7 @@ class Question extends Component {
             data-testid="correct-answer"
             className={ rightAnswerClasses }
             onClick={ this.handleClick }
+            disabled={ disableButton }
           >
             {correctAnswer}
           </button>
@@ -61,6 +72,7 @@ class Question extends Component {
           data-testid={ `wrong-answer-${ansIndex}` }
           className={ wrongAnswerClasses }
           onClick={ this.handleClick }
+          disabled={ disableButton }
         >
           {answer}
         </button>
