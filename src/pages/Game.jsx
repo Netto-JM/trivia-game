@@ -13,6 +13,17 @@ class Game extends Component {
     dispatch(fetchGame());
   }
 
+  // método "shuffle" abaixo usa um algoritmo chamado "Fisher-Yates shuffle."
+
+  shuffle = (array) => {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
+  };
+
   render() {
     const { questions, errorMessage, history, questionIndex } = this.props;
     if (errorMessage === INVALID_TOKEN_ERROR) {
@@ -21,17 +32,6 @@ class Game extends Component {
     }
 
     const nextQuestionAvailable = AMOUNT > questionIndex;
-
-    // função "shuffle" abaixo usa um algoritmo chamado "Fisher-Yates shuffle."
-
-    const shuffle = (array) => {
-      const shuffledArray = [...array];
-      for (let i = shuffledArray.length - 1; i > 0; i -= 1) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-      }
-      return shuffledArray;
-    };
 
     const questionsElement = questions.map((element, index) => {
       const {
@@ -42,7 +42,7 @@ class Game extends Component {
         question,
         // type,
       } = element;
-      const shuffledAnsweers = shuffle([...incorrectAnswers, correctAnswer]);
+      const shuffledAnsweers = this.shuffle([...incorrectAnswers, correctAnswer]);
       return (
         <Question
           key={ question + index }
