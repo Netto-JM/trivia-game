@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { user, score } = this.props;
-    const { image, name } = user;
+    const { player, score } = this.props;
+    const { image, name } = player;
     const imageUrl = (hash) => `https://www.gravatar.com/avatar/${hash}`;
 
     return (
@@ -19,7 +19,7 @@ class Header extends Component {
 }
 
 Header.defaultProps = {
-  user: {
+  player: {
     image: '',
     name: '',
     email: '',
@@ -27,7 +27,7 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  user: PropTypes.shape({
+  player: PropTypes.shape({
     image: PropTypes.string,
     name: PropTypes.string,
     email: PropTypes.string,
@@ -35,8 +35,8 @@ Header.propTypes = {
   score: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ user, game }) => ({
-  user,
+const mapStateToProps = ({ player, game }) => ({
+  player,
   score: game.score,
 });
 

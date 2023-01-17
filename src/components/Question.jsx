@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { answerQuestion } from '../redux/actions';
 
 class Question extends Component {
   state = {
@@ -39,10 +41,20 @@ class Question extends Component {
     }));
   };
 
-  handleClick = () => {
+  handleClick = ({ target: { name } }) => {
+    const { difficulty, dispatch } = this.props;
+    const { questionTimer } = this.state;
+    if (name === 'correctAnswer') {
+      const dfcyMtpl = { hard: 3, medium: 2, easy: 1 };
+      const TEN_POINTS = 10;
+      const questionScore = TEN_POINTS + (questionTimer * dfcyMtpl[difficulty]);
+      console.log('questionScore', questionScore);
+      dispatch(answerQuestion(questionScore));
+    }
     this.setState({
       rightAnswerClasses: 'answer clicked-right-answer',
       wrongAnswerClasses: 'answer clicked-wrong-answer',
+      disableButton: true,
     });
   };
 
@@ -57,6 +69,7 @@ class Question extends Component {
             type="button"
             key={ answer + ansIndex }
             data-testid="correct-answer"
+            name="correctAnswer"
             className={ rightAnswerClasses }
             onClick={ this.handleClick }
             disabled={ disableButton }
@@ -70,6 +83,7 @@ class Question extends Component {
           type="button"
           key={ answer + ansIndex }
           data-testid={ `wrong-answer-${ansIndex}` }
+          name="wrongAnswer"
           className={ wrongAnswerClasses }
           onClick={ this.handleClick }
           disabled={ disableButton }
@@ -90,10 +104,12 @@ class Question extends Component {
 }
 
 Question.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   question: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
   correctAnswer: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default Question;
+export default connect()(Question);

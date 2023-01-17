@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { MD5 } from 'crypto-js';
 
 import logo from '../trivia.png';
-import { saveUser } from '../redux/actions';
+import { savePlayer } from '../redux/actions';
 
 export const apiRequest = async () => {
   const response = await fetch('https://opentdb.com/api_token.php?command=request');
@@ -37,7 +37,7 @@ class Login extends Component {
     const image = MD5(email).toString();
 
     if (msg === 'Token Generated Successfully!') {
-      dispatch(saveUser({ name: user, email, image }));
+      dispatch(savePlayer({ name: user, email, image }));
       this.saveLocalStorage(data);
       return this.redirect('/game');
     }

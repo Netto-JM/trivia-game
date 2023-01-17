@@ -37,7 +37,7 @@ class Game extends Component {
       const {
         category,
         correct_answer: correctAnswer,
-        // difficulty,
+        difficulty,
         incorrect_answers: incorrectAnswers,
         question,
         // type,
@@ -50,6 +50,7 @@ class Game extends Component {
           category={ category }
           answers={ shuffledAnsweers }
           correctAnswer={ correctAnswer }
+          difficulty={ difficulty }
         />
       );
     });
