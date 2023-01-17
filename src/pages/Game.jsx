@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import Question from '../components/Question';
 import { fetchGame, INVALID_TOKEN_ERROR, AMOUNT } from '../redux/actions';
 
+import '../styles/Game.css';
+
 class Game extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
@@ -40,27 +42,14 @@ class Game extends Component {
         question,
         // type,
       } = element;
-      const wrongAnswers = incorrectAnswers.map((answer, ansIndex) => (
-        <button
-          type="button"
-          key={ answer + ansIndex }
-          data-testid={ `wrong-answer-${ansIndex}` }
-        >
-          {answer}
-        </button>
-      ));
-      const rightAnswer = (
-        <button type="button" data-testid="correct-answer">
-          {correctAnswer}
-        </button>
-      );
-      const shuffledAnsweers = shuffle([...wrongAnswers, rightAnswer]);
+      const shuffledAnsweers = shuffle([...incorrectAnswers, correctAnswer]);
       return (
         <Question
           key={ question + index }
           question={ question }
           category={ category }
-          options={ shuffledAnsweers }
+          answers={ shuffledAnsweers }
+          correctAnswer={ correctAnswer }
         />
       );
     });
