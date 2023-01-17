@@ -33,6 +33,10 @@ class Game extends Component {
 
     const nextQuestionAvailable = AMOUNT > questionIndex;
 
+    if (!nextQuestionAvailable) {
+      history.push('/feedback');
+    }
+
     const questionsElement = questions.map((element, index) => {
       const {
         category,
@@ -58,11 +62,7 @@ class Game extends Component {
     return (
       <div>
         <h1>Game</h1>
-        {nextQuestionAvailable ? (
-          questionsElement[questionIndex]
-        ) : (
-          <h1>Game Over</h1>
-        )}
+        {questionsElement[questionIndex]}
         <Header />
       </div>
     );
