@@ -1,0 +1,7 @@
+.clicked-right-answer {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.clicked-wrong-answer {
+  border: 3px solid red;
+}
