@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   email: '',
   fetching: false,
   score: 0,
-  rightAnswer: 0,
+  assertions: 0,
 };
 
 const playerReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -23,7 +23,7 @@ const playerReducer = (state = INITIAL_STATE, { type, payload }) => {
   case ANSWER_QUESTION:
     return { ...state, score: state.score + payload };
   case FEEDBACK_MESSAGE:
-    return { ...state, rightAnswer: state.rightAnswer + payload };
+    return { ...state, assertions: state.assertions + payload };
   default:
     return state;
   }
