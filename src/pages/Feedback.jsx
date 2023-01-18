@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
 class Feedback extends Component {
+  handleClick = (path) => {
+    const { history } = this.props;
+    history.push(path);
+  };
+
   handleFeedback = () => {
     const { assertions } = this.props;
     const valueMin = 3;
@@ -24,20 +29,14 @@ class Feedback extends Component {
         <button
           type="button"
           data-testid="btn-play-again"
-          onClick={ () => {
-            const { history } = this.props;
-            history.push('/');
-          } }
+          onClick={ () => { this.handleClick('/'); } }
         >
           Play Again
         </button>
         <button
           type="button"
           data-testid="btn-ranking"
-          onClick={ () => {
-            const { history } = this.props;
-            history.push('/ranking');
-          } }
+          onClick={ () => { this.handleClick('/ranking'); } }
         >
           Ranking
         </button>
@@ -52,7 +51,6 @@ Feedback.propTypes = {
 }.isRequired;
 
 const mapStateToProps = ({ player }) => ({
-  player,
   score: player.score,
   assertions: player.assertions,
 });
