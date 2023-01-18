@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
 class Feedback extends Component {
+  handleFeedback = () => {
+    const { assertions } = this.props;
+    const valueMin = 3;
+    return assertions < valueMin ? <h3>Could be better...</h3> : <h3>Well Done!</h3>;
+  };
+
   render() {
     const { assertions, score } = this.props;
-    const valueMin = 3;
-    const handleFeedback = () => (
-      assertions < valueMin ? <h3>Could be better...</h3> : <h3>Well Done!</h3>
-    );
-
     return (
       <div data-testid="feedback-text">
         <Header />
@@ -19,7 +20,27 @@ class Feedback extends Component {
         <h3>Você acertou:</h3>
         <h1 data-testid="feedback-total-question">{ assertions }</h1>
         <h3>Questões de um total de 5.</h3>
-        {handleFeedback()}
+        { this.handleFeedback() }
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => {
+            const { history } = this.props;
+            history.push('/');
+          } }
+        >
+          Play Again
+        </button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ () => {
+            const { history } = this.props;
+            history.push('/ranking');
+          } }
+        >
+          Ranking
+        </button>
       </div>
     );
   }
