@@ -62,8 +62,8 @@ class Game extends Component {
     return (
       <div>
         <h1>Game</h1>
-        {questionsElement[questionIndex]}
         <Header />
+        {questionsElement[questionIndex]}
       </div>
     );
   }

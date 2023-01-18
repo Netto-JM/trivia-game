@@ -69,6 +69,7 @@ class Question extends Component {
       wrongAnswerClasses,
       disableButton,
       showNextButton,
+      questionTimer,
     } = this.state;
 
     const options = answers.map((answer, ansIndex) => {
@@ -107,6 +108,9 @@ class Question extends Component {
         <h1 data-testid="question-category">{category}</h1>
         <p data-testid="question-text">{question}</p>
         <div data-testid="answer-options">{options}</div>
+        <div>
+          { questionTimer }
+        </div>
         {showNextButton && (
           <button
             data-testid="btn-next"

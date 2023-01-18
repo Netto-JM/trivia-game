@@ -9,7 +9,6 @@ const INITIAL_STATE = {
   questions: [],
   isFetching: false,
   errorMessage: '',
-  score: 0,
   questionIndex: 0,
 };
 

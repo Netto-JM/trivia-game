@@ -3,10 +3,12 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
-import apiRequest from '../pages/Login';
 import mockFetchToken from '../__mocks__/mockFetchToken';
 
 describe('Testes da Tela de Login', () => {
+<<<<<<< HEAD
+  it.only('verifica se a página principal da aplicação é renderizada na rota "/"', () => {
+=======
 
   // it('verifica o retorno da api', async () => {
 
@@ -17,6 +19,7 @@ describe('Testes da Tela de Login', () => {
 
   it('verifica se a página principal da aplicação é renderizada na rota "/"', () => {
 
+>>>>>>> 909d324f88208dfedf5fdde573f044f840f7b1b2
     jest.spyOn(global, 'fetch').mockImplementation(mockFetchToken);
 
     const { history } = renderWithRouterAndRedux(<App />);
@@ -35,12 +38,5 @@ describe('Testes da Tela de Login', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://opentdb.com/api_token.php?command=request');
 
     expect(global.fetch).toReturn();
-  });
-
-  it('verifica chamadas de funções', () => {
-    renderWithRouterAndRedux(<App />);
-    expect(typeof apiRequest).toBe('object');
-    const localStg = localStorage;
-    expect(typeof localStg).toBe('object');
   });
 });

@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Header from '../components/Header';
 
 class Feedback extends Component {
   render() {
-    return <div data-testid="feedback-text">Feedback Page</div>;
+  //   let contador;
+  //   const valueMin = 3;
+  //   handleFeedback = () => {
+  //     if (contador < valueMin) {
+  //       <p>Could be better...</p>;
+  //     } else {
+  //       <p>Well Done!</p>;
+  //     }
+  //   };
+
+    return (
+      <div data-testid="feedback-text">
+        <Header />
+      </div>
+    );
   }
 }
 
-export default Feedback;
+export default connect()(Feedback);

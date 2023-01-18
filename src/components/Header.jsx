@@ -11,8 +11,14 @@ class Header extends Component {
     return (
       <div>
         <img src={ imageUrl(image) } data-testid="header-profile-picture" alt={ name } />
-        <p data-testid="header-player-name">{ name }</p>
-        <p data-testid="header-score">{ score }</p>
+        <span>{' '}</span>
+        <span>{' '}</span>
+        <span>Player: </span>
+        <span data-testid="header-player-name">{ name }</span>
+        <span>{' '}</span>
+        <span>{' '}</span>
+        <span>Score: </span>
+        <span data-testid="header-score">{ score }</span>
       </div>
     );
   }
@@ -35,9 +41,9 @@ Header.propTypes = {
   score: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ player, game }) => ({
+const mapStateToProps = ({ player }) => ({
   player,
-  score: game.score,
+  score: player.score,
 });
 
 export default connect(mapStateToProps)(Header);
