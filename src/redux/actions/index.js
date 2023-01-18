@@ -1,4 +1,6 @@
-export const SAVE_USER = 'SAVE_USER';
+export const SAVE_PLAYER = 'SAVE_PLAYER';
+export const SAVE_PLAYER_IMAGE = 'SAVE_PLAYER_IMAGE';
+
 export const FETCH_GAME_STARTED = 'FETCH_GAME_STARTED';
 export const FETCH_GAME_SUCCESSFUL = 'FETCH_GAME_SUCCESSFUL';
 export const FETCH_GAME_FAILED = 'FETCH_GAME_FAILED';
@@ -7,9 +9,14 @@ export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const GO_TO_NEXT_QUESTION = 'GO_TO_NEXT_QUESTION';
 export const AMOUNT = 5;
 
-export const saveUser = (userName) => ({
-  type: SAVE_USER,
-  payload: userName,
+export const savePlayer = (payload) => ({
+  type: SAVE_PLAYER,
+  payload,
+});
+
+export const savePlayerImage = (payload) => ({
+  type: SAVE_PLAYER_IMAGE,
+  payload,
 });
 
 export const answerQuestion = (result) => ({
