@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 
-export class Feedback extends Component {
+class Feedback extends Component {
   render() {
   //   let contador;
   //   const valueMin = 3;
