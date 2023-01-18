@@ -6,20 +6,7 @@ import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 import mockFetchToken from '../__mocks__/mockFetchToken';
 
 describe('Testes da Tela de Login', () => {
-<<<<<<< HEAD
-  it.only('verifica se a página principal da aplicação é renderizada na rota "/"', () => {
-=======
-
-  // it('verifica o retorno da api', async () => {
-
-  //   jest.spyOn(global, 'fetch');
-  //   await apiRequest();
-  //   expect(global.fetch).toHaveBeenCalled();
-  // });
-
   it('verifica se a página principal da aplicação é renderizada na rota "/"', () => {
-
->>>>>>> 909d324f88208dfedf5fdde573f044f840f7b1b2
     jest.spyOn(global, 'fetch').mockImplementation(mockFetchToken);
 
     const { history } = renderWithRouterAndRedux(<App />);

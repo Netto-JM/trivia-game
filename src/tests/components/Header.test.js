@@ -1,15 +1,17 @@
-import React from "react";
-import { screen } from "@testing-library/react";
-import renderWithRouterAndRedux from "../helpers/renderWithRouterAndRedux";
+import React from 'react';
+import { screen } from '@testing-library/react';
+import { renderWithRouterAndRedux } from '../helpers/renderWithRouterAndRedux';
 import Header from '../../components/Header';
+
+const usernameVariavel = 'Nome do usuario';
 
 const initialState = {
   player: {
     image: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
-    name: 'Nome do usuario',
+    name: usernameVariavel,
     score: 0,
-  }
-}
+  },
+};
 
 describe('Testa o componente Header', () => {
   test('Verifica se o se o nome da pessoa está presente no header', () => {
@@ -17,7 +19,7 @@ describe('Testa o componente Header', () => {
     const username = screen.getByTestId('header-player-name');
 
     expect(username).toBeInTheDocument();
-    expect(username.innerHTML).toBe('Nome do usuario');
+    expect(username.innerHTML).toBe(username);
   });
 
   test('Verifica se a imagem do Gravatar está presente no header', () => {
@@ -26,7 +28,7 @@ describe('Testa o componente Header', () => {
 
     expect(gravatar).toBeInTheDocument();
     expect(gravatar).toHaveAttribute('src', 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50');
-    expect(gravatar).toHaveAttribute('alt', 'Nome do usuario');
+    expect(gravatar).toHaveAttribute('alt', usernameVariavel);
   });
 
   test('Verifica se o placar zerado está presente no header', () => {
