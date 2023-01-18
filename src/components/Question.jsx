@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { answerQuestion, goToNextQuestion } from '../redux/actions';
+import { answerQuestion, feedbackMessage, goToNextQuestion } from '../redux/actions';
 
 class Question extends Component {
   state = {
@@ -52,8 +52,15 @@ class Question extends Component {
     dispatch(answerQuestion(questionScore));
   };
 
+  feedbackMsg = () => {
+    const { dispatch } = this.props;
+    const sum = 1;
+    dispatch(feedbackMessage(sum));
+  };
+
   handleClick = ({ target: { name } }) => {
     if (name === 'correctAnswer') this.updateScore();
+    if (name === 'correctAnswer') this.feedbackMsg();
     this.setState({
       rightAnswerClasses: 'answer clicked-right-answer',
       wrongAnswerClasses: 'answer clicked-wrong-answer',

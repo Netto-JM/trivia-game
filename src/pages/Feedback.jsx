@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
 class Feedback extends Component {
   render() {
-  //   let contador;
-  //   const valueMin = 3;
-  //   handleFeedback = () => {
-  //     if (contador < valueMin) {
-  //       <p>Could be better...</p>;
-  //     } else {
-  //       <p>Well Done!</p>;
-  //     }
-  //   };
+    const { rightAnswer } = this.props;
+    const valueMin = 3;
+    const handleFeedback = () => (
+      rightAnswer < valueMin ? <p>Could be better...</p> : <p>Well Done!</p>
+    );
 
     return (
       <div data-testid="feedback-text">
         <Header />
+        {handleFeedback()}
       </div>
     );
   }
 }
 
-export default connect()(Feedback);
+Feedback.propTypes = {
+  rightAnswer: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = ({ player }) => ({
+  player,
+  rightAnswer: player.rightAnswer,
+});
+
+export default connect(mapStateToProps)(Feedback);
