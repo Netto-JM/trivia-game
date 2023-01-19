@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import { Redirect } from 'react-router-dom';
 
 class Feedback extends Component {
   handleFeedback = () => {
@@ -11,32 +11,34 @@ class Feedback extends Component {
     return assertions < valueMin ? <h3>Could be better...</h3> : <h3>Well Done!</h3>;
   };
 
-  redirectToHome = () => <Redirect to="/" />;
-
-  redirectRanking = () => <Redirect to="/ranking" />;
-
   render() {
     const { assertions, score } = this.props;
     return (
       <div data-testid="feedback-text">
         <Header />
         <h3>O seu placar foi:</h3>
-        <h1 data-testid="feedback-total-score">{ score }</h1>
+        <h1 data-testid="feedback-total-score">{score}</h1>
         <h3>Você acertou:</h3>
-        <h1 data-testid="feedback-total-question">{ assertions }</h1>
+        <h1 data-testid="feedback-total-question">{assertions}</h1>
         <h3>Questões de um total de 5.</h3>
-        { this.handleFeedback() }
+        {this.handleFeedback()}
         <button
           type="button"
           data-testid="btn-play-again"
-          onClick={ () => this.redirectToHome() }
+          onClick={ () => {
+            const { history } = this.props;
+            history.push('/');
+          } }
         >
           Play Again
         </button>
         <button
           type="button"
           data-testid="btn-ranking"
-          onClick={ () => this.redirectRanking() }
+          onClick={ () => {
+            const { history } = this.props;
+            history.push('/ranking');
+          } }
         >
           Ranking
         </button>
