@@ -8,7 +8,7 @@ class Ranking extends Component {
     const image = <img src={ `https://www.gravatar.com/avatar/${player.image}` } alt={ player.name } />;
     return (
       <>
-        <table data-testid="table">
+        <table data-testid="ranking-title">
           <thead>
             <tr>
               <th data-testid="picture">Profile</th>
