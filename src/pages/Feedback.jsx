@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import { changeQuestionIndex } from '../redux/actions';
+import { changeQuestionIndex, clearPlayerInfo } from '../redux/actions';
 
 class Feedback extends Component {
   redirect = (path) => {
@@ -11,9 +11,9 @@ class Feedback extends Component {
   };
 
   handleClick = () => {
-    console.log('feedback handle');
     const { dispatch } = this.props;
     dispatch(changeQuestionIndex(0));
+    dispatch(clearPlayerInfo());
     this.redirect('/');
   };
 
