@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import { Redirect } from 'react-router-dom';
 
 class Feedback extends Component {
   handleFeedback = () => {
@@ -9,6 +10,10 @@ class Feedback extends Component {
     const valueMin = 3;
     return assertions < valueMin ? <h3>Could be better...</h3> : <h3>Well Done!</h3>;
   };
+
+  redirectToHome = () => <Redirect to="/" />;
+
+  redirectRanking = () => <Redirect to="/ranking" />;
 
   render() {
     const { assertions, score } = this.props;
@@ -24,20 +29,14 @@ class Feedback extends Component {
         <button
           type="button"
           data-testid="btn-play-again"
-          onClick={ () => {
-            const { history } = this.props;
-            history.push('/');
-          } }
+          onClick={ () => this.redirectToHome() }
         >
           Play Again
         </button>
         <button
           type="button"
           data-testid="btn-ranking"
-          onClick={ () => {
-            const { history } = this.props;
-            history.push('/ranking');
-          } }
+          onClick={ () => this.redirectRanking() }
         >
           Ranking
         </button>
