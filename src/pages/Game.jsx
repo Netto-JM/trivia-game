@@ -8,14 +8,20 @@ import { fetchGame, INVALID_TOKEN_ERROR, AMOUNT } from '../redux/actions';
 import '../styles/Game.css';
 
 class Game extends Component {
+  state = {
+    questionsElement: [],
+  };
+
   async componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchGame());
+    await dispatch(fetchGame());
+    this.mountQuestions();
   }
 
   // método "shuffle" abaixo usa um algoritmo chamado "Fisher-Yates shuffle."
 
   shuffle = (array) => {
+    console.log('shuffledy');
     const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -24,19 +30,12 @@ class Game extends Component {
     return shuffledArray;
   };
 
-  render() {
-    const { questions, errorMessage, history, questionIndex } = this.props;
-    if (errorMessage === INVALID_TOKEN_ERROR) {
-      localStorage.removeItem('token');
-      history.push('/');
-    }
+  savePlayerInfo = (playerInfo) => {
+    console.log(playerInfo);
+  };
 
-    const nextQuestionAvailable = AMOUNT > questionIndex;
-
-    if (!nextQuestionAvailable) {
-      history.push('/feedback');
-    }
-
+  mountQuestions = () => {
+    const { questions } = this.props;
     const questionsElement = questions.map((element, index) => {
       const {
         category,
@@ -58,6 +57,23 @@ class Game extends Component {
         />
       );
     });
+    this.setState({ questionsElement });
+  };
+
+  render() {
+    const { errorMessage, history, questionIndex } = this.props;
+    const { questionsElement } = this.state;
+    if (errorMessage === INVALID_TOKEN_ERROR) {
+      localStorage.removeItem('token');
+      history.push('/');
+    }
+
+    const nextQuestionAvailable = AMOUNT > questionIndex;
+
+    if (!nextQuestionAvailable) {
+      this.savePlayerInfo(playerInfo);
+      history.push('/feedback');
+    }
 
     return (
       <div>
@@ -69,10 +85,11 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = ({ game }) => ({
+const mapStateToProps = ({ game, player: { name, image, score } }) => ({
   questions: game.questions,
   errorMessage: game.errorMessage,
   questionIndex: game.questionIndex,
+  playerInfo: { name, image, score },
 });
 
 Game.propTypes = {
@@ -81,6 +98,11 @@ Game.propTypes = {
   questionIndex: PropTypes.number.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   history: PropTypes.shape().isRequired,
+  playerInfo: PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string,
+    score: PropTypes.number,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Game);
