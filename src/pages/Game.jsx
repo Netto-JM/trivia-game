@@ -21,7 +21,6 @@ class Game extends Component {
   // método "shuffle" abaixo usa um algoritmo chamado "Fisher-Yates shuffle."
 
   shuffle = (array) => {
-    console.log('shuffledy');
     const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -61,7 +60,7 @@ class Game extends Component {
   };
 
   render() {
-    const { errorMessage, history, questionIndex } = this.props;
+    const { errorMessage, history, questionIndex, playerInfo } = this.props;
     const { questionsElement } = this.state;
     if (errorMessage === INVALID_TOKEN_ERROR) {
       localStorage.removeItem('token');
