@@ -8,14 +8,14 @@ import { fetchGame, INVALID_TOKEN_ERROR, AMOUNT } from '../redux/actions';
 import '../styles/Game.css';
 
 class Game extends Component {
-  state = {
-    questionsElement: [],
-  };
+  // state = {
+  //   questionsElement: [],
+  // };
 
   async componentDidMount() {
     const { dispatch } = this.props;
     await dispatch(fetchGame());
-    this.mountQuestions();
+    // this.mountQuestions();
   }
 
   // método "shuffle" abaixo usa um algoritmo chamado "Fisher-Yates shuffle."
@@ -30,11 +30,43 @@ class Game extends Component {
   };
 
   savePlayerInfo = (playerInfo) => {
-    console.log(playerInfo);
+    const previousRanking = JSON.parse(localStorage.getItem('triviaRanking')) || [];
+    const currentRanking = [...previousRanking, playerInfo];
+    localStorage.setItem('triviaRanking', JSON.stringify(currentRanking));
+    // console.log('previousRanking', previousRanking);
+    // console.log('currentRanking', currentRanking);
   };
 
-  mountQuestions = () => {
-    const { questions } = this.props;
+  // mountQuestions = () => {
+  //   const { questions } = this.props;
+  //   const questionsElement = questions.map((element, index) => {
+  //     const {
+  //       category,
+  //       correct_answer: correctAnswer,
+  //       difficulty,
+  //       incorrect_answers: incorrectAnswers,
+  //       question,
+  //       // type,
+  //     } = element;
+  //     const shuffledAnsweers = this.shuffle([...incorrectAnswers, correctAnswer]);
+  //     return (
+  //       <Question
+  //         key={ question + index }
+  //         question={ question }
+  //         category={ category }
+  //         answers={ shuffledAnsweers }
+  //         correctAnswer={ correctAnswer }
+  //         difficulty={ difficulty }
+  //       />
+  //     );
+  //   });
+  //   this.setState({ questionsElement });
+  // };
+
+  render() {
+    const { errorMessage, history, questionIndex, playerInfo, questions } = this.props;
+    // const { questionsElement } = this.state;
+
     const questionsElement = questions.map((element, index) => {
       const {
         category,
@@ -56,12 +88,7 @@ class Game extends Component {
         />
       );
     });
-    this.setState({ questionsElement });
-  };
 
-  render() {
-    const { errorMessage, history, questionIndex, playerInfo } = this.props;
-    const { questionsElement } = this.state;
     if (errorMessage === INVALID_TOKEN_ERROR) {
       localStorage.removeItem('token');
       history.push('/');
