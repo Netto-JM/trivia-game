@@ -23,7 +23,6 @@ class Ranking extends Component {
 
   render() {
     const { triviaRanking } = this.state;
-    // const image = <img src={ imgUrl } alt={ player.name } />;
     const tableRanking = triviaRanking.map(({ image, name, score }, index) => {
       const imgUrl = `https://www.gravatar.com/avatar/${image}`;
       return (

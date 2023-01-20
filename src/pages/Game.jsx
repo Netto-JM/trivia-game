@@ -33,8 +33,6 @@ class Game extends Component {
     const previousRanking = JSON.parse(localStorage.getItem('triviaRanking')) || [];
     const currentRanking = [...previousRanking, playerInfo];
     localStorage.setItem('triviaRanking', JSON.stringify(currentRanking));
-    // console.log('previousRanking', previousRanking);
-    // console.log('currentRanking', currentRanking);
   };
 
   // mountQuestions = () => {
