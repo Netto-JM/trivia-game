@@ -6,11 +6,11 @@ class Header extends Component {
   render() {
     const { player, score } = this.props;
     const { image, name } = player;
-    const imageUrl = (hash) => `https://www.gravatar.com/avatar/${hash}`;
+    // const imageUrl = (hash) => `https://www.gravatar.com/avatar/${hash}`;
 
     return (
       <div>
-        <img src={ imageUrl(image) } data-testid="header-profile-picture" alt={ name } />
+        <img src={ `https://www.gravatar.com/avatar/${image}` } data-testid="header-profile-picture" alt={ name } />
         <span>{' '}</span>
         <span>{' '}</span>
         <span>Player: </span>
