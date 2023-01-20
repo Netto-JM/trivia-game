@@ -21,11 +21,11 @@ class Feedback extends Component {
       <div data-testid="feedback-text">
         <Header />
         <h3>O seu placar foi:</h3>
-        <h1 data-testid="feedback-total-score">{ score }</h1>
+        <h1 data-testid="feedback-total-score">{score}</h1>
         <h3>Você acertou:</h3>
-        <h1 data-testid="feedback-total-question">{ assertions }</h1>
+        <h1 data-testid="feedback-total-question">{assertions}</h1>
         <h3>Questões de um total de 5.</h3>
-        { this.handleFeedback() }
+        {this.handleFeedback()}
         <button
           type="button"
           data-testid="btn-play-again"
