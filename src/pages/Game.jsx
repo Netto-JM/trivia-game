@@ -8,9 +8,14 @@ import { fetchGame, INVALID_TOKEN_ERROR, AMOUNT } from '../redux/actions';
 import '../styles/Game.css';
 
 class Game extends Component {
+  // state = {
+  //   questionsElement: [],
+  // };
+
   async componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchGame());
+    await dispatch(fetchGame());
+    // this.mountQuestions();
   }
 
   // método "shuffle" abaixo usa um algoritmo chamado "Fisher-Yates shuffle."
@@ -24,18 +29,41 @@ class Game extends Component {
     return shuffledArray;
   };
 
+  savePlayerInfo = (playerInfo) => {
+    const previousRanking = JSON.parse(localStorage.getItem('triviaRanking')) || [];
+    const currentRanking = [...previousRanking, playerInfo];
+    localStorage.setItem('triviaRanking', JSON.stringify(currentRanking));
+  };
+
+  // mountQuestions = () => {
+  //   const { questions } = this.props;
+  //   const questionsElement = questions.map((element, index) => {
+  //     const {
+  //       category,
+  //       correct_answer: correctAnswer,
+  //       difficulty,
+  //       incorrect_answers: incorrectAnswers,
+  //       question,
+  //       // type,
+  //     } = element;
+  //     const shuffledAnsweers = this.shuffle([...incorrectAnswers, correctAnswer]);
+  //     return (
+  //       <Question
+  //         key={ question + index }
+  //         question={ question }
+  //         category={ category }
+  //         answers={ shuffledAnsweers }
+  //         correctAnswer={ correctAnswer }
+  //         difficulty={ difficulty }
+  //       />
+  //     );
+  //   });
+  //   this.setState({ questionsElement });
+  // };
+
   render() {
-    const { questions, errorMessage, history, questionIndex } = this.props;
-    if (errorMessage === INVALID_TOKEN_ERROR) {
-      localStorage.removeItem('token');
-      history.push('/');
-    }
-
-    const nextQuestionAvailable = AMOUNT > questionIndex;
-
-    if (!nextQuestionAvailable) {
-      history.push('/feedback');
-    }
+    const { errorMessage, history, questionIndex, playerInfo, questions } = this.props;
+    // const { questionsElement } = this.state;
 
     const questionsElement = questions.map((element, index) => {
       const {
@@ -59,6 +87,18 @@ class Game extends Component {
       );
     });
 
+    if (errorMessage === INVALID_TOKEN_ERROR) {
+      localStorage.removeItem('token');
+      history.push('/');
+    }
+
+    const nextQuestionAvailable = AMOUNT > questionIndex;
+
+    if (!nextQuestionAvailable) {
+      this.savePlayerInfo(playerInfo);
+      history.push('/feedback');
+    }
+
     return (
       <div>
         <h1>Game</h1>
@@ -69,10 +109,11 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = ({ game }) => ({
+const mapStateToProps = ({ game, player: { name, image, score } }) => ({
   questions: game.questions,
   errorMessage: game.errorMessage,
   questionIndex: game.questionIndex,
+  playerInfo: { name, image, score },
 });
 
 Game.propTypes = {
@@ -81,6 +122,11 @@ Game.propTypes = {
   questionIndex: PropTypes.number.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   history: PropTypes.shape().isRequired,
+  playerInfo: PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string,
+    score: PropTypes.number,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Game);

@@ -2,7 +2,7 @@ import {
   FETCH_GAME_STARTED,
   FETCH_GAME_SUCCESSFUL,
   FETCH_GAME_FAILED,
-  GO_TO_NEXT_QUESTION,
+  CHANGE_QUESTION_INDEX,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -20,8 +20,8 @@ const gameReducer = (state = INITIAL_STATE, { type, payload }) => {
     return { ...state, isFetching: false, errorMessage: '', questions: payload };
   case FETCH_GAME_FAILED:
     return { ...state, isFetching: false, errorMessage: payload, questions: [] };
-  case GO_TO_NEXT_QUESTION:
-    return { ...state, questionIndex: state.questionIndex + 1 };
+  case CHANGE_QUESTION_INDEX:
+    return { ...state, questionIndex: payload };
   default:
     return state;
   }

@@ -3,6 +3,7 @@ import {
   SAVE_PLAYER_IMAGE,
   ANSWER_QUESTION,
   FEEDBACK_MESSAGE,
+  CLEAR_PLAYER_INFO,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -24,6 +25,8 @@ const playerReducer = (state = INITIAL_STATE, { type, payload }) => {
     return { ...state, score: state.score + payload };
   case FEEDBACK_MESSAGE:
     return { ...state, assertions: state.assertions + payload };
+  case CLEAR_PLAYER_INFO:
+    return INITIAL_STATE;
   default:
     return state;
   }

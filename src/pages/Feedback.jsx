@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import { changeQuestionIndex, clearPlayerInfo } from '../redux/actions';
 
 class Feedback extends Component {
-  handleClick = (path) => {
+  redirect = (path) => {
     const { history } = this.props;
     history.push(path);
+  };
+
+  handleClick = () => {
+    const { dispatch } = this.props;
+    dispatch(changeQuestionIndex(0));
+    dispatch(clearPlayerInfo());
+    this.redirect('/');
   };
 
   handleFeedback = () => {
@@ -29,14 +37,14 @@ class Feedback extends Component {
         <button
           type="button"
           data-testid="btn-play-again"
-          onClick={ () => { this.handleClick('/'); } }
+          onClick={ this.handleClick }
         >
           Play Again
         </button>
         <button
           type="button"
           data-testid="btn-ranking"
-          onClick={ () => { this.handleClick('/ranking'); } }
+          onClick={ () => { this.redirect('/ranking'); } }
         >
           Ranking
         </button>
@@ -48,6 +56,7 @@ class Feedback extends Component {
 Feedback.propTypes = {
   assertions: PropTypes.number,
   score: PropTypes.number,
+  dispatch: PropTypes.func,
 }.isRequired;
 
 const mapStateToProps = ({ player }) => ({

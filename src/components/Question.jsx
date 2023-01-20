@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { answerQuestion, feedbackMessage, goToNextQuestion } from '../redux/actions';
+import { answerQuestion, feedbackMessage, changeQuestionIndex } from '../redux/actions';
 
 class Question extends Component {
   state = {
@@ -70,7 +70,14 @@ class Question extends Component {
   };
 
   render() {
-    const { question, category, answers, correctAnswer, dispatch } = this.props;
+    const {
+      question,
+      category,
+      answers,
+      correctAnswer,
+      dispatch,
+      questionIndex,
+    } = this.props;
     const {
       rightAnswerClasses,
       wrongAnswerClasses,
@@ -122,7 +129,7 @@ class Question extends Component {
           <button
             data-testid="btn-next"
             type="button"
-            onClick={ () => { dispatch(goToNextQuestion()); } }
+            onClick={ () => { dispatch(changeQuestionIndex(questionIndex + 1)); } }
           >
             Next
           </button>
@@ -135,10 +142,15 @@ class Question extends Component {
 Question.propTypes = {
   dispatch: PropTypes.func.isRequired,
   question: PropTypes.string.isRequired,
+  questionIndex: PropTypes.number.isRequired,
   category: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
   correctAnswer: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect()(Question);
+const mapStateToProps = ({ game: { questionIndex } }) => ({
+  questionIndex,
+});
+
+export default connect(mapStateToProps)(Question);

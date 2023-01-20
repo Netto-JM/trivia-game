@@ -7,8 +7,13 @@ export const FETCH_GAME_FAILED = 'FETCH_GAME_FAILED';
 export const INVALID_TOKEN_ERROR = 'Invalid Token';
 export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const FEEDBACK_MESSAGE = 'FEEDBACK_MESSAGE';
-export const GO_TO_NEXT_QUESTION = 'GO_TO_NEXT_QUESTION';
+export const CHANGE_QUESTION_INDEX = 'CHANGE_QUESTION_INDEX';
+export const CLEAR_PLAYER_INFO = 'CLEAR_PLAYER_INFO';
 export const AMOUNT = 5;
+
+export const clearPlayerInfo = () => ({
+  type: CLEAR_PLAYER_INFO,
+});
 
 export const savePlayer = (payload) => ({
   type: SAVE_PLAYER,
@@ -30,8 +35,9 @@ export const feedbackMessage = (result) => ({
   payload: result,
 });
 
-export const goToNextQuestion = () => ({
-  type: GO_TO_NEXT_QUESTION,
+export const changeQuestionIndex = (payload) => ({
+  type: CHANGE_QUESTION_INDEX,
+  payload,
 });
 
 const fetchGameStarted = () => ({
