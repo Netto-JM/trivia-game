@@ -11,7 +11,6 @@ class Ranking extends Component {
   componentDidMount() {
     const triviaRanking = JSON.parse(localStorage.getItem('triviaRanking')) || [];
     this.setState({ triviaRanking: triviaRanking.sort((a, b) => b.score - a.score) });
-    console.log('sortedRank', triviaRanking);
   }
 
   handleClick = () => {
