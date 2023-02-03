@@ -1,6 +1,4 @@
 export const SAVE_PLAYER = 'SAVE_PLAYER';
-export const SAVE_PLAYER_IMAGE = 'SAVE_PLAYER_IMAGE';
-
 export const FETCH_GAME_STARTED = 'FETCH_GAME_STARTED';
 export const FETCH_GAME_SUCCESSFUL = 'FETCH_GAME_SUCCESSFUL';
 export const FETCH_GAME_FAILED = 'FETCH_GAME_FAILED';
@@ -17,11 +15,6 @@ export const clearPlayerInfo = () => ({
 
 export const savePlayer = (payload) => ({
   type: SAVE_PLAYER,
-  payload,
-});
-
-export const savePlayerImage = (payload) => ({
-  type: SAVE_PLAYER_IMAGE,
   payload,
 });
 

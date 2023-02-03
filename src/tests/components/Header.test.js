@@ -18,8 +18,7 @@ describe('Testa o componente Header', () => {
     renderWithRouterAndRedux(<Header />, initialState);
     const username = screen.getByTestId('header-player-name');
 
-    expect(username).toBeInTheDocument();
-    expect(username.innerHTML).toBe(username);
+    expect(username).toHaveTextContent(usernameVariavel);
   });
 
   test('Verifica se a imagem do Gravatar está presente no header', () => {

@@ -35,9 +35,10 @@ class Login extends Component {
     const { response_message: msg } = data;
 
     const image = MD5(email).toString();
+    const imgUrl = `https://www.gravatar.com/avatar/${image}`;
 
     if (msg === 'Token Generated Successfully!') {
-      dispatch(savePlayer({ name: user, email, image }));
+      dispatch(savePlayer({ name: user, email, image: imgUrl }));
       this.saveLocalStorage(data);
       return this.redirect('/game');
     }

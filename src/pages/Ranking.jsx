@@ -22,18 +22,15 @@ class Ranking extends Component {
 
   render() {
     const { triviaRanking } = this.state;
-    const tableRanking = triviaRanking.map(({ image, name, score }, index) => {
-      const imgUrl = `https://www.gravatar.com/avatar/${image}`;
-      return (
-        <tr key={ image + name + (score * Math.random()) }>
-          <td>
-            <img src={ imgUrl } alt={ name } />
-          </td>
-          <td data-testid={ `player-name-${index}` }>{name}</td>
-          <td data-testid={ `player-score-${index}` }>{score}</td>
-        </tr>
-      );
-    });
+    const tableRanking = triviaRanking.map(({ image, name, score }, index) => (
+      <tr key={ image + name + (score * Math.random()) }>
+        <td>
+          <img src={ image } alt={ name } />
+        </td>
+        <td data-testid={ `player-name-${index}` }>{name}</td>
+        <td data-testid={ `player-score-${index}` }>{score}</td>
+      </tr>
+    ));
 
     return (
       <>
