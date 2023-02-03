@@ -25,7 +25,6 @@ describe('Testa o componente Header', () => {
     renderWithRouterAndRedux(<Header />, initialState);
     const gravatar = screen.getByTestId('header-profile-picture');
 
-    expect(gravatar).toBeInTheDocument();
     expect(gravatar).toHaveAttribute('src', 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50');
     expect(gravatar).toHaveAttribute('alt', usernameVariavel);
   });
@@ -34,7 +33,6 @@ describe('Testa o componente Header', () => {
     renderWithRouterAndRedux(<Header />, initialState);
     const score = screen.getByTestId('header-score');
 
-    expect(score).toBeInTheDocument();
-    expect(score.innerHTML).toBe('0');
+    expect(score).toHaveTextContent('0');
   });
 });
