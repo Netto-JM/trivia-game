@@ -17,23 +17,21 @@ class Feedback extends Component {
     this.redirect('/');
   };
 
-  handleFeedback = () => {
-    const { assertions } = this.props;
-    const valueMin = 3;
-    return assertions < valueMin ? <h3>Could be better...</h3> : <h3>Well Done!</h3>;
-  };
-
   render() {
     const { assertions, score } = this.props;
+    const VALUE_MIN = 3;
+    const feedbackText = assertions < VALUE_MIN ? 'Could be better...' : 'Well Done!';
     return (
-      <div data-testid="feedback-text">
+      <div>
         <Header />
         <h3>O seu placar foi:</h3>
         <h1 data-testid="feedback-total-score">{score}</h1>
         <h3>Você acertou:</h3>
         <h1 data-testid="feedback-total-question">{assertions}</h1>
         <h3>Questões de um total de 5.</h3>
-        {this.handleFeedback()}
+        <div data-testid="feedback-text">
+          <h3>{feedbackText}</h3>
+        </div>
         <button
           type="button"
           data-testid="btn-play-again"
